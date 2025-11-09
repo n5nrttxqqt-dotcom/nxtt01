@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>nxtt-oo1</title>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root{
+            --bg: #f8fafc;
+            --accent: #4f46e5;
+            --accent-2: #06b6d4;
+            --muted: #6b7280;
+            --card: #ffffff;
+            --glass: rgba(255,255,255,0.7);
+        }
+
+        /* base */
+        html,body{height:100%}
+        body{
+            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg,#fbfdff 0%, #f6f9fb 100%);
+            color: #0f172a;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            line-height:1.5;
+        }
+
+        /* navbar */
+        .navbar{
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid rgba(15,23,42,0.04);
+        }
+        .navbar-brand{
+            font-weight:800;
+            letter-spacing: .3px;
+            background: linear-gradient(90deg,var(--accent),var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .navbar .nav-link{
+            color: #475569;
+            transition: color .18s ease, transform .12s ease;
+            margin-left: .25rem;
+            margin-right: .25rem;
+        }
+        .navbar .nav-link:hover{
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .navbar-toggler{
+            border: none;
+        }
+
+        /* hero */
+        .hero{
+            min-height: 64vh;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(120deg, #eef2ff 0%, #f8fafc 100%);
+            padding: 4.5rem 0;
+        }
+        .profile-img{
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 6px solid #fff;
+            box-shadow: 0 8px 24px rgba(2,6,23,0.06);
+            transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+        }
+        .profile-img:hover{
+            transform: translateY(-8px) rotate(-1deg) scale(1.02);
+            box-shadow: 0 26px 48px rgba(2,6,23,0.12);
+        }
+        .hero h1{
+            font-size: 2.3rem;
+            text-shadow: 0 6px 22px rgba(79,70,229,0.06);
+        }
+        .hero .lead{ color: var(--muted); }
+
+        /* buttons */
+        .btn-primary{
+            background: linear-gradient(90deg, var(--accent), #8b5cf6);
+            border: none;
+            box-shadow: 0 8px 22px rgba(79,70,229,0.10);
+            transition: transform .16s ease, box-shadow .16s ease;
+        }
+        .btn-primary:hover{
+            transform: translateY(-4px);
+            box-shadow: 0 28px 56px rgba(79,70,229,0.12);
+        }
+        .btn-outline-primary{
+            border-color: rgba(79,70,229,0.16);
+            color: var(--accent);
+        }
+        .btn-outline-primary:hover{
+            background: rgba(79,70,229,0.06);
+            color: var(--accent);
+        }
+
+        /* sections and typography */
+        section{ padding-top: 3.5rem; padding-bottom: 3.5rem; }
+        h2,h3{ color: #0b1220; }
+        .text-muted{ color: var(--muted) !important; }
+
+        /* cards */
+        .card{
+            border: none;
+            border-radius: .7rem;
+            overflow: hidden;
+            transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s;
+            background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
+        }
+        .card:hover{
+            transform: translateY(-10px);
+            box-shadow: 0 32px 72px rgba(2,6,23,0.08);
+        }
+        .card .card-img-top{
+            transition: transform .5s ease;
+            object-fit: cover;
+            height: 180px;
+        }
+        .card:hover .card-img-top{ transform: scale(1.03); }
+
+        /* progress */
+        .progress{
+            height: 12px;
+            background: rgba(15,23,42,0.04);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .progress-bar{
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            box-shadow: inset 0 -4px 8px rgba(0,0,0,0.06);
+        }
+
+        /* contact form */
+        form .form-control{
+            border-radius: .6rem;
+            transition: box-shadow .18s ease, border-color .18s ease, transform .12s;
+        }
+        form .form-control:focus{
+            box-shadow: 0 8px 30px rgba(6,182,212,0.08);
+            border-color: rgba(6,182,212,0.75);
+            transform: translateY(-1px);
+        }
+        .p-4.bg-white{
+            border-radius: .6rem;
+            background: linear-gradient(180deg,#ffffff,#fdfdfd);
+            border: 1px solid rgba(15,23,42,0.04);
+        }
+
+        /* footer */
+        footer{
+            background: transparent;
+            border-top: 1px solid rgba(15,23,42,0.04);
+        }
+        footer a{ color: #475569; transition: color .12s; }
+        footer a:hover{ color: var(--accent); }
+
+        /* small helpers */
+        .mb-0.small.text-muted{ color: var(--muted) !important; }
+        .shadow-sm{ box-shadow: 0 6px 18px rgba(2,6,23,0.04) !important; }
+
+        /* responsive tweaks */
+        @media (max-width: 767.98px){
+            .hero h1{ font-size: 1.6rem; }
+            .card .card-img-top{ height: 140px; }
+            .profile-img{ width: 140px; height: 140px; }
+        }
+        body {
+              font-family: "Playfair Display", serif;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">nxtt-ctrl01</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container text-center">
+        <img src="https://image2url.com/images/1762707043696-935ce4a9-56f4-4314-9c46-a99722d3921a.jpg" alt="Profile" class="profile-img mb-3">
+        <h1 class="display-5 fw-bold">THAT SOTHOUN</h1>
+        <p class="lead text-muted">Fullstack developer </p>
+        <div class="mt-3">
+            <a href="#projects" class="btn btn-primary me-2">Project</a>
+            <a href="#contact" class="btn btn-outline-primary">Get in touch</a>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-5 text-center">
+                <img src="https://image2url.com/images/1762707097123-881ec483-78a1-4cb0-8ed4-d9d6b540b98e.jpg" class="img-fluid rounded shadow-sm" alt="About image">
+            </div>
+            <div class="col-md-7">
+                <h2>About me</h2>
+                <p class="text-muted">I build responsive websites and interfaces using modern tools. I focus on clean code, accessibility and delightful user experiences. Replace this paragraph with a short bio about your background, interests and the value you bring.</p>
+                <ul class="list-unstyled">
+                    <li><strong>Location:</strong><a href="https://maps.app.goo.gl/qMHVuSNHwFScYMne6">Terk Thla , Phnom Penh</a></li>
+                    <li><strong>Email:</strong> <a href="https://www.sothounthat@gmail.com">sothounthat@gmail.com</a></li>
+                    <li><strong>Availability:</strong> </li>
+                </ul>
+                <a href="#contact" class="btn btn-outline-secondary">Contact me</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="py-5 bg-light">
+    <div class="container">
+        <h3 class="mb-4">Skills</h3>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <h6 class="mb-1">HTML & CSS</h6>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+                </div>
+                <h6 class="mb-1">Bootstrap</h6>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 92%" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">92%</div>
+                </div>
+                <h6 class="mb-1">JavaScript</h6>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h6 class="mb-1">React</h6>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+                </div>
+                <h6 class="mb-1">UI Design</h6>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+                </div>
+                <h6 class="mb-1">Git</h6>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">78%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="mb-0">Projects</h3>
+            <a href="#" class="btn btn-sm btn-outline-primary">View all</a>
+        </div>
+
+        <div class="row g-4">
+            <!-- Project card 1 -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="https://kdmv.io/cdn/shop/files/final_kdmv_logo.png?height=628&pad_color=232325&v=1709824720&width=1200" class="card-img-top" alt="Project 1">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Kdmv Plateform</h5>
+                        <p class="card-text text-muted"> Kdmv is localbrand Cambodia  </p>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-primary btn-sm">Live</a>
+                            <a href="#" class="btn btn-outline-secondary btn-sm">Source</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Project card 2 -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="https://ezranking.s3.eu-west-2.amazonaws.com/blog/wp-content/uploads/2023/02/28100228/Top-10-Best-ECommerce-Platforms-For-SEO.jpg" class="card-img-top" alt="Project 2">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Ecommerce Plateform</h5>
+                        <p class="card-text text-muted"> Learn and build project Ecommerce Plateform website for customer</p>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-primary btn-sm">Live</a>
+                            <a href="#" class="btn btn-outline-secondary btn-sm">Source</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Project card 3 -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="https://img-kariyer.mncdn.com/mnpadding/1200/630/FFFFFF/UploadFiles/Clients/SquareLogo/770/ai_dtk_276770_6022024004755.png" class="card-img-top" alt="Project 3">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Profilio </h5>
+                        <p class="card-text text-muted">Build profilio and update cv apply for work </p>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-primary btn-sm">Live</a>
+                            <a href="#" class="btn btn-outline-secondary btn-sm">Source</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-5 bg-light">
+    <div class="container">
+        <h3>Contact  Us</h3>
+
+        <div class="row">
+            <div class="col-md-6">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" placeholder="Your name">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" placeholder="you@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" rows="5" placeholder="Hi, I would like to..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send message</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div class="p-4 bg-white rounded shadow-sm">
+                 
+                       <p>Let enjoy and work together  please !! </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-4 bg-white border-top">
+    <div class="container d-flex justify-content-between align-items-center">
+        <p class="mb-0 small text-muted">© <span id="year"></span> support by sothounthat@gmail.com</p>
+        <div>
+           
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap JS bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // small script: update year and smooth scroll for nav links
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.querySelectorAll('a.nav-link').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            const id = a.getAttribute('href');
+            if (!id || id === '#') return;
+            document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+</script>
+</body>
+</html>
